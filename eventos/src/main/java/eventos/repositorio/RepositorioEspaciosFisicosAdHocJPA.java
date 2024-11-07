@@ -10,12 +10,11 @@ import eventos.modelo.EspacioFisico;
 import repositorio.RepositorioJPA;
 
 
-public class RepositorioEspaciosFisicosAhHocJPA extends RepositorioJPA<EspacioFisico> implements RepositorioEspaciosFisicosAdHoc {
+public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFisico> implements RepositorioEspaciosFisicosAdHoc {
 
 	@Override
 	public Class<EspacioFisico> getClase() {
-		// TODO Auto-generated method stub
-		return null;
+		return EspacioFisico.class;
 	}
 
 }

@@ -10,12 +10,11 @@ import eventos.modelo.Evento;
 import repositorio.RepositorioJPA;
 
 
-public class RepositorioEventosAhHocJPA extends RepositorioJPA<Evento> implements RepositorioEventosAdHoc {
+public class RepositorioEventosAdHocJPA extends RepositorioJPA<Evento> implements RepositorioEventosAdHoc {
 
 	@Override
 	public Class<Evento> getClase() {
-		// TODO Auto-generated method stub
-		return null;
+		return Evento.class;
 	}
 
 }
