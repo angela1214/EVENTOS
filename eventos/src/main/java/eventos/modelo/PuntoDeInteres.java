@@ -38,4 +38,6 @@ public class PuntoDeInteres implements Identificable {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
 }
