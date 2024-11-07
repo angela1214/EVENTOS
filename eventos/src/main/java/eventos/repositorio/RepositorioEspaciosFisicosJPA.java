@@ -3,7 +3,7 @@ package eventos.repositorio;
 import eventos.modelo.EspacioFisico;
 import repositorio.RepositorioJPA;
 
-public class RepositorioEspacioFisicoJPA extends RepositorioJPA<EspacioFisico>{
+public class RepositorioEspaciosFisicosJPA extends RepositorioJPA<EspacioFisico>{
 
 	@Override
 	public Class<EspacioFisico> getClase() {
