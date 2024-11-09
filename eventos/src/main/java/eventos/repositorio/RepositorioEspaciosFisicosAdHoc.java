@@ -1,6 +1,10 @@
 package eventos.repositorio;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import eventos.modelo.EspacioFisico;
+import eventos.modelo.Ocupacion;
 import repositorio.RepositorioException;
 import repositorio.RepositorioString;
 
@@ -11,16 +15,12 @@ import repositorio.RepositorioString;
  */
 public interface RepositorioEspaciosFisicosAdHoc extends RepositorioString<EspacioFisico> {
 
-	/*
-		Consultas concretas que se quieran tener definidas
+	// Consultas concretas que se quieran tener definidas
 	
-	public default List<Encuesta> getByActivas() throws RepositorioException {
-	}
+	public List<Ocupacion> getOcupacionesDeEspacioFisico (String espacio) throws RepositorioException;
 	
-	public List<Encuesta> getBySinVotos();
+	public List<Ocupacion> getOcupacionesActivasDeEspacioFisico (String espacio) throws RepositorioException;
 	
-	public List<Encuesta> getByNumeroOpcionesMayorQue(int numero);
-	
-	*/
-	
+	public List<EspacioFisico> getEspaciosFisicosLibres (LocalDateTime fecha_inicio, LocalDateTime fecha_fin, int capacidad_min) throws RepositorioException;
+
 }
