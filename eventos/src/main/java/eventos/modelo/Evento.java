@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,6 +18,10 @@ import repositorio.Identificable;
 
 @Entity
 @Table(name="evento")
+@NamedQueries({
+	@NamedQuery
+	(name="Evento.getEventosMes", query="SELECT e FROM Evento e"), // JOIN e.ocupacion o WHERE o.fechaFin BETWEEN :inicio AND :fin")
+})
 public class Evento implements Identificable {
 	
 	@Id
@@ -36,7 +42,7 @@ public class Evento implements Identificable {
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="ocupacion_fk")
 	private Ocupacion ocupacion;
 	

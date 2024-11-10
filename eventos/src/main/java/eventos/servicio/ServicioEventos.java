@@ -33,7 +33,7 @@ public class ServicioEventos implements IServicioEventos {
 			throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
 
 		if (descripcion == null || descripcion.isEmpty()) 
-			throw new IllegalArgumentException("organizador: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("descripcion: no debe ser nulo ni vacio");
 		
 		if (organizador == null || organizador.isEmpty()) 
 			throw new IllegalArgumentException("organizador: no debe ser nulo ni vacio");
@@ -63,7 +63,7 @@ public class ServicioEventos implements IServicioEventos {
 		EspacioFisico espacio_fisico = repositorioEspaciosFisicos.getById(id_espacio_fisico);
 
 		if (descripcion == null || descripcion.isEmpty()) 
-			throw new IllegalArgumentException("organizador: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("descripcion: no debe ser nulo ni vacio");
 		
 		if (plazas == 0 || plazas > espacio_fisico.getCapacidad()) 
 			throw new IllegalArgumentException("plazas: no debe ser igual a 0 ni el número de plazas puede ser mayor a la capacidad del espacio físico");
@@ -102,7 +102,7 @@ public class ServicioEventos implements IServicioEventos {
 			throws RepositorioException, EntidadNoEncontrada {
 
 		LinkedList<EventoResumen> resultado = new LinkedList<>();
-		
+
 		for (Evento evento : repositorioEventos.getEventosMes(mes, ano)) {
 			
 			EventoResumen resumen = new EventoResumen();

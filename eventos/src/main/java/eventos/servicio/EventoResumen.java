@@ -56,7 +56,6 @@ public class EventoResumen {
 		return nombre_puntosDeInteres_espacioFisico;
 	}
 
-
 	// Setters 
 	
 	public void setId(String id) {
@@ -95,6 +94,14 @@ public class EventoResumen {
 
 	public void setNombre_puntosDeInteres_espacioFisico(List<String> nombre_puntosDeInteres_espacioFisico) {
 		this.nombre_puntosDeInteres_espacioFisico = nombre_puntosDeInteres_espacioFisico;
+	}
+
+	@Override
+	public String toString() {
+		return "EventoResumen [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha incio="
+				+ fechaIncio + ", categoria=" + categoria + ", nombre del espacio fisico=" + nombre_espacioFisico
+				+ ", direccion del espacio fisico=" + direccion_espacioFisico + ", puntos de interes (espacio fisico)="
+				+ nombre_puntosDeInteres_espacioFisico + "]";
 	}
 	
 }
