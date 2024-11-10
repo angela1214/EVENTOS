@@ -3,6 +3,7 @@ package eventos.servicio;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
+import eventos.dto.EventosDTO;
 import eventos.modelo.Categoria;
 import repositorio.EntidadNoEncontrada;
 import repositorio.RepositorioException;
@@ -17,4 +18,5 @@ public interface IServicioEventos {
 	
 	LinkedList<EventoResumen> getListadoResumen(int mes, int ano) throws RepositorioException, EntidadNoEncontrada;
 
+	EventosDTO getEvento(String id) throws RepositorioException, EntidadNoEncontrada;
 }

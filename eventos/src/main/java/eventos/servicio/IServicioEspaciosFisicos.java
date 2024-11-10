@@ -3,6 +3,7 @@ package eventos.servicio;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import eventos.dto.EspacioFisicoDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoDeInteres;
 import repositorio.EntidadNoEncontrada;
@@ -22,4 +23,5 @@ public interface IServicioEspaciosFisicos {
 	
 	List<EspacioFisico> buscarEspaciosFisicosByFecha (LocalDateTime fecha_inicio, LocalDateTime fecha_fin, int capacidad_min) throws RepositorioException, EntidadNoEncontrada;
 	
+	EspacioFisicoDTO getEspacioFisico(String id) throws RepositorioException, EntidadNoEncontrada;
 }

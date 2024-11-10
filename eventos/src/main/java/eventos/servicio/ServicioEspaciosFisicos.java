@@ -3,6 +3,7 @@ package eventos.servicio;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import eventos.dto.EspacioFisicoDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.EstadoEspacio;
 import eventos.modelo.Ocupacion;
@@ -124,5 +125,19 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 		
 	}
 
+	@Override
+	public EspacioFisicoDTO getEspacioFisico(String id) throws RepositorioException, EntidadNoEncontrada {
+		
+		if (id == null || id.isEmpty())
+			throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+		
+		EspacioFisico espacioFisico = repositorioEspacios.getById(id);
+		return transformToDTO(espacioFisico);
+	}
+
+	private EspacioFisicoDTO transformToDTO(EspacioFisico espacio) {        
+        return new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(), espacio.getDireccion(),
+        		espacio.getLatitud(), espacio.getLongitud(), espacio.getPuntosDeInteres(), espacio.getDescripcion(), espacio.getEstado());
+    }
 	
 }

@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import eventos.dto.EventosDTO;
 import eventos.modelo.Categoria;
 import eventos.modelo.Evento;
 import eventos.modelo.EspacioFisico;
@@ -134,5 +135,19 @@ public class ServicioEventos implements IServicioEventos {
 		
 		return resultado;
 	}
+
+	@Override
+	public EventosDTO getEvento(String id) throws RepositorioException, EntidadNoEncontrada {
+		if (id == null || id.isEmpty())
+			throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+		
+		Evento evento = repositorioEventos.getById(id);
+		return transformToDTO(evento);
+	}
+	
+	private EventosDTO transformToDTO(Evento evento) {        
+        return new EventosDTO(evento.getId(), evento.getNombre(), evento.getDescripcion(), evento.getOrganizador(),
+        			evento.getPlazas(), evento.isCancelado(), evento.getCategoria(), evento.getOcupacion());
+    }
 	
 }
