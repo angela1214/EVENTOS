@@ -17,6 +17,8 @@ import utils.EntityManagerHelper;
 
 public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFisico> implements RepositorioEspaciosFisicosAdHoc {
 
+	private EntityManager em = EntityManagerHelper.getEntityManager();	
+	
 	@Override
 	public Class<EspacioFisico> getClase() {
 		return EspacioFisico.class;
@@ -25,8 +27,7 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ocupacion> getOcupacionesDeEspacioFisico(String espacio) throws RepositorioException {
-		
-		EntityManager em = EntityManagerHelper.getEntityManager();		
+			
 		String queryString = "SELECT o " +
 							"FROM ocupacion o" +
 							"WHERE o.espacio_fisico_fk = " + espacio;

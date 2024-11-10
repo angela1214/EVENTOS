@@ -1,5 +1,7 @@
 package eventos.repositorio;
 
+import java.util.List;
+
 import eventos.modelo.Evento;
 import repositorio.RepositorioException;
 import repositorio.RepositorioString;
@@ -7,20 +9,14 @@ import repositorio.RepositorioString;
 /*
  * Esta interfaz extiende la definición genérica con operaciones *ad hoc* de consulta.
  * 
- * Es una interfaz concreta para una entidad (EspacioFisico).
+ * Es una interfaz concreta para una entidad (Eventos).
  */
 public interface RepositorioEventosAdHoc extends RepositorioString<Evento> {
 
-	/*
-		Consultas concretas que se quieran tener definidas
+	//Consultas concretas que se quieran tener definidas
 	
-	public default List<Encuesta> getByActivas() throws RepositorioException {
-	}
+	public boolean removeOcupacion(String id) throws RepositorioException;
 	
-	public List<Encuesta> getBySinVotos();
-	
-	public List<Encuesta> getByNumeroOpcionesMayorQue(int numero);
-	
-	*/
-	
+	public List<Evento> getEventosMes(int mes, int ano) throws RepositorioException; 
+		
 }
