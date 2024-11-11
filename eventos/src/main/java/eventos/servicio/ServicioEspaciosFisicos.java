@@ -56,7 +56,7 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 		EspacioFisico espacio = repositorioEspacios.getById(id);
 		
 		espacio.setPuntosDeInteres(puntosDeInteres);
-		
+
 		repositorioEspacios.update(espacio);
 	}
 
@@ -68,7 +68,7 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 			
 		EspacioFisico espacio = repositorioEspacios.getById(id);
 		
-		if (nombre == null || nombre.isEmpty()) 
+		if (nombre == null || nombre.isEmpty())
 			throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
 		
 		if (capacidad == 0) 

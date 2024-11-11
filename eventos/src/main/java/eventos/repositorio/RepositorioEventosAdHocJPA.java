@@ -2,8 +2,6 @@ package eventos.repositorio;
 
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,9 +11,7 @@ import javax.persistence.Query;
 import org.eclipse.persistence.config.HintValues;
 import org.eclipse.persistence.config.QueryHints;
 
-import eventos.modelo.Categoria;
 import eventos.modelo.Evento;
-import eventos.modelo.Ocupacion;
 import repositorio.RepositorioException;
 import repositorio.RepositorioJPA;
 import utils.EntityManagerHelper;

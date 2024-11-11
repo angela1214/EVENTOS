@@ -1,12 +1,9 @@
 package eventos.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import eventos.modelo.Categoria;
-import eventos.modelo.EstadoEspacio;
 import eventos.modelo.Ocupacion;
-import eventos.modelo.PuntoDeInteres;
 
 @SuppressWarnings("serial")
 public class EventosDTO implements Serializable {
@@ -96,6 +93,13 @@ public class EventosDTO implements Serializable {
 
 	public void setOcupacion(Ocupacion ocupacion) {
 		this.ocupacion = ocupacion;
+	}
+
+	@Override
+	public String toString() {
+		return "EventosDTO [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", organizador="
+				+ organizador + ", plazas=" + plazas + ", cancelado=" + cancelado + ", categoria=" + categoria
+				+ ", ocupacion=" + ocupacion + "]";
 	}
 
 }

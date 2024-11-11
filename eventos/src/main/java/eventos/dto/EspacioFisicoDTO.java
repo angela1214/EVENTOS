@@ -117,4 +117,13 @@ public class EspacioFisicoDTO implements Serializable {
         this.id = id;
     }
 
+	@Override
+	public String toString() {
+		return "EspacioFisicoDTO [id=" + id + ", nombre=" + nombre + ", propietario=" + propietario + ", capacidad="
+				+ capacidad + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud=" + longitud
+				+ ", puntosDeInteres=" + puntosDeInteres + ", descripcion=" + descripcion + ", estado=" + estado + "]";
+	}
+	
+	
+
 }
