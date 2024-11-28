@@ -401,7 +401,7 @@ public class ServicioEventosTest {
 		}
 		
 	}
-	
+
 	// ----------------------------------- Resumen de eventos -----------------------------------
 	
 	@Test
@@ -424,7 +424,7 @@ public class ServicioEventosTest {
 		assertEquals(2, resumen.size());
 		
 	}
-	
+		
 	// ----------------------------------- Cancelar un evento -----------------------------------
 	
 	@Test

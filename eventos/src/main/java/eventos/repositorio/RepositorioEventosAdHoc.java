@@ -14,9 +14,7 @@ import repositorio.RepositorioString;
 public interface RepositorioEventosAdHoc extends RepositorioString<Evento> {
 
 	//Consultas concretas que se quieran tener definidas
-	
-	public boolean removeOcupacion(String id) throws RepositorioException;
-	
+		
 	public List<Evento> getEventosMes(int mes, int ano) throws RepositorioException; 
 		
 }

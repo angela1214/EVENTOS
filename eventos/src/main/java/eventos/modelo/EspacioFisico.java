@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class EspacioFisico implements Identificable {
 	
 	private double longitud;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name = "espacio_fisico_puntos_de_interes", 
 	joinColumns = { @JoinColumn(name = "espacio_fisico_fk") }, 
 	inverseJoinColumns = { @JoinColumn(name = "punto_interes_fk") })

@@ -8,14 +8,17 @@ import eventos.modelo.EspacioFisico;
 import eventos.modelo.EstadoEspacio;
 import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoDeInteres;
+import eventos.repositorio.RepositorioEspaciosFisicosAdHoc;
 import eventos.repositorio.RepositorioEspaciosFisicosAdHocJPA;
+import eventos.repositorio.RepositorioEventosAdHoc;
+import eventos.repositorio.RepositorioEventosAdHocJPA;
 import repositorio.EntidadNoEncontrada;
 import repositorio.FactoriaRepositorios;
 import repositorio.RepositorioException;
 
 public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
-	
-	private RepositorioEspaciosFisicosAdHocJPA repositorioEspacios = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
+
+	private  RepositorioEspaciosFisicosAdHocJPA repositorioEspacios = FactoriaRepositorios.getRepositorio(RepositorioEspaciosFisicosAdHoc.class);
 
 	public String alta(String nombre, String propietario, int capacidad, String direccion, double latitud, 
 			double longitud, String descripcion) throws RepositorioException {

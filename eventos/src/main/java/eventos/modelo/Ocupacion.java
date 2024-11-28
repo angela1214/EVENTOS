@@ -44,7 +44,7 @@ public class Ocupacion implements Identificable {
 	
 	// Calculado
 	public boolean activa() {
-		return false;
+		return (this.fechaFin.isAfter(LocalDateTime.now()));
 	}
 	
 	// Getters

@@ -1,5 +1,7 @@
 package eventos.modelo;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,10 +18,6 @@ import repositorio.Identificable;
 
 @Entity
 @Table(name="evento")
-@NamedQueries({
-	@NamedQuery
-	(name="Evento.getEventosMes", query="SELECT e FROM Evento e"), // JOIN e.ocupacion o WHERE o.fechaFin BETWEEN :inicio AND :fin")
-})
 public class Evento implements Identificable {
 	
 	@Id
@@ -42,7 +38,7 @@ public class Evento implements Identificable {
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(orphanRemoval = true, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="ocupacion_fk")
 	private Ocupacion ocupacion;
 	
@@ -51,13 +47,13 @@ public class Evento implements Identificable {
 	}
 	
 	public Evento(String nombre, String descripcion, String organizador, int plazas,
-			Categoria categoria, Ocupacion ocupacion ) {
+			Categoria categoria, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, EspacioFisico espacio_fisico ) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.organizador = organizador;
 		this.plazas = plazas;
 		this.categoria = categoria;
-		this.ocupacion = ocupacion;
+		this.ocupacion = new Ocupacion(fecha_inicio, fecha_fin, espacio_fisico);
 	}
 	
 	// Getters

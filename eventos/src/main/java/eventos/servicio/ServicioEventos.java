@@ -11,7 +11,9 @@ import eventos.modelo.Evento;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoDeInteres;
+import eventos.repositorio.RepositorioEspaciosFisicosAdHoc;
 import eventos.repositorio.RepositorioEspaciosFisicosAdHocJPA;
+import eventos.repositorio.RepositorioEventosAdHoc;
 import eventos.repositorio.RepositorioEventosAdHocJPA;
 import repositorio.EntidadNoEncontrada;
 import repositorio.FactoriaRepositorios;
@@ -19,8 +21,8 @@ import repositorio.RepositorioException;
 
 public class ServicioEventos implements IServicioEventos {
 	
-	private  RepositorioEventosAdHocJPA repositorioEventos = FactoriaRepositorios.getRepositorio(Evento.class);
-	private  RepositorioEspaciosFisicosAdHocJPA repositorioEspaciosFisicos = FactoriaRepositorios.getRepositorio(EspacioFisico.class);
+	private  RepositorioEventosAdHocJPA repositorioEventos = FactoriaRepositorios.getRepositorio(RepositorioEventosAdHoc.class);
+	private  RepositorioEspaciosFisicosAdHocJPA repositorioEspaciosFisicos = FactoriaRepositorios.getRepositorio(RepositorioEspaciosFisicosAdHoc.class);
 
 	public String alta(String nombre, String descripcion, String organizador, int plazas, Categoria categoria, 
 			LocalDateTime fecha_inicio, LocalDateTime fecha_fin, String id_espacio_fisico)
@@ -48,8 +50,7 @@ public class ServicioEventos implements IServicioEventos {
 		if (fecha_inicio == null || fecha_fin== null || fecha_inicio.isAfter(fecha_fin)) 
 			throw new IllegalArgumentException("fecha inicio y fecha fin: no deben ser nulas ni la fecha inicio posterior a la fecha fin");
 		
-		Ocupacion ocupacion = new Ocupacion(fecha_inicio, fecha_fin, espacio_fisico);
-		Evento evento = new Evento(nombre, descripcion, organizador, plazas, categoria, ocupacion);
+		Evento evento = new Evento(nombre, descripcion, organizador, plazas, categoria, fecha_inicio, fecha_fin, espacio_fisico);
 		
 		String id = repositorioEventos.add(evento);
 		
@@ -88,14 +89,12 @@ public class ServicioEventos implements IServicioEventos {
 	public void cancelar(String id) throws RepositorioException, EntidadNoEncontrada {
 
 		Evento evento = repositorioEventos.getById(id);
-		Ocupacion ocupacion = evento.getOcupacion();
 
-		boolean borrado = repositorioEventos.removeOcupacion(ocupacion.getId());
-		if (borrado) {
-			evento.setCancelado(borrado);
-		}
+		evento.setCancelado(true);
+		evento.setOcupacion(null);
 		
-		repositorioEventos.update(evento);
+		repositorioEventos.update(evento);		
+
 	}
 
 	@Override
@@ -105,7 +104,7 @@ public class ServicioEventos implements IServicioEventos {
 		LinkedList<EventoResumen> resultado = new LinkedList<>();
 
 		for (Evento evento : repositorioEventos.getEventosMes(mes, ano)) {
-			
+
 			EventoResumen resumen = new EventoResumen();
 			
 			resumen.setId(evento.getId());
