@@ -10,8 +10,6 @@ import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoDeInteres;
 import eventos.repositorio.RepositorioEspaciosFisicosAdHoc;
 import eventos.repositorio.RepositorioEspaciosFisicosAdHocJPA;
-import eventos.repositorio.RepositorioEventosAdHoc;
-import eventos.repositorio.RepositorioEventosAdHocJPA;
 import repositorio.EntidadNoEncontrada;
 import repositorio.FactoriaRepositorios;
 import repositorio.RepositorioException;
@@ -65,16 +63,16 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 
 	public void modificar(String id, String nombre, int capacidad, String descripcion)
 			throws RepositorioException, EntidadNoEncontrada {
-		
+
 		if (id == null || id.isEmpty())
 			throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
-			
+		
 		EspacioFisico espacio = repositorioEspacios.getById(id);
 		
 		if (nombre == null || nombre.isEmpty())
 			throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
 		
-		if (capacidad == 0) 
+		if (capacidad == 0)
 			throw new IllegalArgumentException("capacidad: no debe ser igual a 0");
 		
 		if (descripcion == null || descripcion.isEmpty()) 
@@ -96,10 +94,12 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 		EspacioFisico espacio = repositorioEspacios.getById(id);
 		
 		List<Ocupacion> ocupaciones = repositorioEspacios.getOcupacionesActivasDeEspacioFisico(id);
-		
+
 		if (ocupaciones.isEmpty()) {
 			espacio.setEstado(EstadoEspacio.CERRADO_TEMPORALMENTE);
 		}
+		
+		repositorioEspacios.update(espacio);
 	}
 
 	public void activar(String id) throws RepositorioException, EntidadNoEncontrada {

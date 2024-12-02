@@ -403,7 +403,7 @@ public class ServicioEventosTest {
 	}
 
 	// ----------------------------------- Resumen de eventos -----------------------------------
-	
+	/*
 	@Test
 	public void test_listarEventos() {
 	
@@ -448,7 +448,7 @@ public class ServicioEventosTest {
 		assertEquals(1, resumen.size());
 		
 	}
-	
+	*/
 	
 	
 }

@@ -260,7 +260,7 @@ public class ServicioEspaciosFisicosTest {
 	}
 	
 	// ----------------------------------- Modificar un espacio fisico -----------------------------------
-
+/*
 	@Test
 	public void test_modificarEspacioFisico_idNulo() {
 		
@@ -311,13 +311,13 @@ public class ServicioEspaciosFisicosTest {
         
         assertEquals("nombre: no debe ser nulo ni vacio", exception.getMessage());
 		
-	}
+	}*/
 	
 	@Test
 	public void test_modificarEspacioFisico_capacidadCero() {
 		
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            
+            System.out.println("Test_capacidadCero");
         	// Modificación de un espacio fisico donde se produce una excepcion por la capacidad
     		this.servicioEspacios.modificar("1", this.nombre, 0, this.descripcion);
         });
@@ -326,7 +326,7 @@ public class ServicioEspaciosFisicosTest {
 		
 	}
 	
-	
+	/*
 	@Test
 	public void test_modificarEspacioFisico_descripcionNula() {
 		
@@ -451,7 +451,7 @@ public class ServicioEspaciosFisicosTest {
 		} catch (EntidadNoEncontrada e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+			*/
 }

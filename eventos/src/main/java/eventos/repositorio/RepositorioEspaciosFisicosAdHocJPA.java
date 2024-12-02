@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import eventos.modelo.EspacioFisico;
+import eventos.modelo.EstadoEspacio;
 import eventos.modelo.Ocupacion;
 import repositorio.RepositorioException;
 import repositorio.RepositorioJPA;
@@ -27,7 +28,7 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 	public List<Ocupacion> getOcupacionesDeEspacioFisico(String espacio) throws RepositorioException {
 		
 		EntityManager em = EntityManagerHelper.getEntityManager();
-		EspacioFisico espacioFisico = em.find(EspacioFisico.class, espacio); 
+		EspacioFisico espacioFisico = em.find(EspacioFisico.class, espacio);
 		
 		String queryString = "SELECT o " +
 							"FROM Ocupacion o " +
@@ -35,6 +36,7 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 		
 		Query query = em.createQuery(queryString);
 		query.setParameter("espacio", espacioFisico);
+		
 		return query.getResultList();
 	}
 	
@@ -43,7 +45,7 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 		
 		List<Ocupacion> ocupaciones = this.getOcupacionesDeEspacioFisico(espacio);
 		return ocupaciones.stream().filter(o -> o.activa()).collect(Collectors.toList());
-		
+	 
 	}
 	
 
@@ -62,6 +64,10 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 			List<Ocupacion> ocupacionesActuales;
 			
 			try {
+				
+				if (espacio.getEstado() == EstadoEspacio.CERRADO_TEMPORALMENTE) {
+					disponible = false;
+				}
 				
 				ocupacionesActuales = this.getOcupacionesActivasDeEspacioFisico(id);
 				

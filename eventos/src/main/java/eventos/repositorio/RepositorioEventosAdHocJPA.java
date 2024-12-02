@@ -22,7 +22,7 @@ public class RepositorioEventosAdHocJPA extends RepositorioJPA<Evento> implement
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	@Override 
 	public List<Evento> getEventosMes(int mes, int anio) throws RepositorioException {
 		
 		EntityManager em = EntityManagerHelper.getEntityManager();
