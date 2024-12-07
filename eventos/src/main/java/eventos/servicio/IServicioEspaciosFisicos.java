@@ -24,4 +24,7 @@ public interface IServicioEspaciosFisicos {
 	List<EspacioFisico> buscarEspaciosFisicosByFecha (LocalDateTime fecha_inicio, LocalDateTime fecha_fin, int capacidad_min) throws RepositorioException, EntidadNoEncontrada;
 	
 	EspacioFisicoDTO getEspacioFisico(String id) throws RepositorioException, EntidadNoEncontrada;
+	
+	List<EspacioFisico> getAll() throws RepositorioException;
+	
 }

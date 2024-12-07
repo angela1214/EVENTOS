@@ -1,11 +1,13 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import eventos.dto.EspacioFisicoDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.EstadoEspacio;
+import eventos.modelo.Evento;
 import eventos.modelo.Ocupacion;
 import eventos.modelo.PuntoDeInteres;
 import eventos.repositorio.RepositorioEspaciosFisicosAdHoc;
@@ -21,29 +23,30 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
 	public String alta(String nombre, String propietario, int capacidad, String direccion, double latitud, 
 			double longitud, String descripcion) throws RepositorioException {
 
+		
 		// Control de integridad de los datos
-		
+
 		if (nombre == null || nombre.isEmpty()) 
-			throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
-		
-		if (propietario == null || propietario.isEmpty()) 
-			throw new IllegalArgumentException("propietario: no debe ser nulo ni vacio");
-		
-		if (capacidad == 0) 
-			throw new IllegalArgumentException("capacidad: no debe ser igual a 0");
-		
-		if (direccion == null || direccion.isEmpty())
-			throw new IllegalArgumentException("direccion: no debe ser nulo ni vacio");
-
-		if (latitud < -90.0 || latitud > 90.0) 
-			throw new IllegalArgumentException("latitud: no debe ser menor a -90º ni mayor a 90º");
-
-		if (longitud < -180.0 || longitud > 180.0) 
-			throw new IllegalArgumentException("longitud: no debe ser menor a -180º ni mayor a 180º");
+			throw new IllegalArgumentException("Nombre: No debe ser nulo ni vacio.");
 		
 		if (descripcion == null || descripcion.isEmpty()) 
-			throw new IllegalArgumentException("descripcion: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("Descripcion: No debe ser nulo ni vacio.");
 		
+		if (propietario == null || propietario.isEmpty()) 
+			throw new IllegalArgumentException("Propietario: No debe ser nulo ni vacio.");
+		
+		if (capacidad == 0) 
+			throw new IllegalArgumentException("Capacidad: No debe ser igual a 0.");
+		
+		if (direccion == null || direccion.isEmpty())
+			throw new IllegalArgumentException("Direccion: No debe ser nulo ni vacio.");
+
+		if (latitud < -90.0 || latitud > 90.0) 
+			throw new IllegalArgumentException("Latitud: No debe ser menor a -90º ni mayor a 90º.");
+
+		if (longitud < -180.0 || longitud > 180.0) 
+			throw new IllegalArgumentException("Longitud: No debe ser menor a -180º ni mayor a 180º.");
+
 		EspacioFisico espacio = new EspacioFisico(nombre, propietario, capacidad, direccion, latitud, longitud, descripcion);
 		
 		String id = repositorioEspacios.add(espacio);
@@ -142,5 +145,10 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
         return new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(), espacio.getDireccion(),
         		espacio.getLatitud(), espacio.getLongitud(), espacio.getPuntosDeInteres(), espacio.getDescripcion(), espacio.getEstado());
     }
+
+	@Override
+	public List<EspacioFisico> getAll() throws RepositorioException {
+		return repositorioEspacios.getAll();
+	}
 	
 }

@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:param name="espacios" value="current" />
+	
+    <ui:define name="title">
+		Listado de espacios físicos
+	</ui:define>
+	
+    <ui:define name="content">
+        <section>
+           <p:dataTable id="espacios" var="espacio" value="#{listadoEspaciosWeb.espacios}">
+                <p:column headerText="ID" style="width: 50px;">
+                    <h:outputText value="#{espacio.id}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{espacio.nombre}" />
+                </p:column>
+                <p:column headerText="Descripcion">
+                    <h:outputText value="#{espacio.descripcion}" />
+                </p:column>
+		        <p:column headerText="Dirección">
+                    <h:outputText value="#{espacio.direccion}" style="width: 300px;"/>
+                </p:column>
+                <p:column headerText="Capacidad">
+                    <h:outputText value="#{espacio.capacidad}" style="width: 100px;"/>
+                </p:column>
+                <p:column headerText="Estado" style="width: 240px;">
+                    <h:outputText value="#{espacio.estado}" />
+                </p:column>
+                <p:column headerText="Acciones" style="width: 310px;">
+                	<h:form>
+	                    <p:button outcome="detalles" value="Ver detalles" styleClass="ui-button-success" style="margin-right: 10px;">
+	                        <f:param name="id" value="#{espacio.id}" />
+	                    </p:button>
+	                    <p:commandButton value="#{espacio.estado == 'ACTIVO' ? 'Desactivar' : 'Activar'}" styleClass="ui-button-info" style="width: 110px;"  
+	                    	actionListener="#{listadoEspaciosWeb.cambiarEstado(espacio.id, espacio.estado)}" update="espacios" />
+                	</h:form>     
+                </p:column>
+            </p:dataTable>
+        </section>
+    </ui:define>
+</ui:composition>
