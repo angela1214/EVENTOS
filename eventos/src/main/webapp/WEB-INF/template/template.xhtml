@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <f:view locale="#{activeLocale.actual}">
+    <h:head>
+        <meta charset="utf-8" />    
+        <title><ui:insert name="title" /></title>
+        <h:outputStylesheet name="assets/css/main.css" />   
+    </h:head>
+    
+    <h:body class="homepage is-preload">
+     
+        <ui:insert name="metadata" />
+        
+        <div id="page-wrapper">
+            <section id="header" style="padding: 70px;">
+            	<div id="logOut" style="margin-bottom: 20px; display: flex; flex-flow: row-reverse wrap;">
+					<h:form>
+						<p:commandButton value="Cerrar sesión" icon="pi pi-user"
+			                actionListener="#{login.logOut()}" styleClass="ui-button-secondary"/>
+					</h:form>
+            	</div>
+	            <h1>
+	                <a>Gestión de eventos y espacios físicos</a>
+	            </h1>
+	            
+	            <nav id="nav">
+		            <ul>
+		                <li class="#{espacios}">
+		                	<h:link outcome="#{request.contextPath}/espacio/listado.xhtml" rendered="#{login.isPropietario()}">Listado de espacios físicos</h:link>
+		                </li>
+		                <li class="#{alta_espacio}">
+		                	<h:link outcome="#{request.contextPath}/espacio/alta.xhtml" rendered="#{login.isPropietario()}">Alta de un espacio físico</h:link>
+		                </li>
+		                <li class="#{buscar_espacios}">
+		                	<h:link outcome="#{request.contextPath}/espacio/buscador.xhtml" rendered="#{!login.isPropietario()}">Buscar espacios físicos</h:link>
+		                </li> 
+		                <li class="#{alta_evento}">
+		                	<h:link outcome="#{request.contextPath}/evento/alta.xhtml" rendered="#{!login.isPropietario()}">Alta de un evento</h:link>
+		                </li>          
+		            </ul>
+	            </nav> 
+            </section>
+            <section id="main">
+            <div class="container" style="width: 90em;">
+                <ui:insert name="content" />
+            </div>
+            </section>
+            <ui:include src="/WEB-INF/template/footer.xhtml" />
+        </div>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        <h:outputScript name="assets/js/jquery.dropotron.min.js" />
+        <h:outputScript name="assets/js/browser.min.js" />
+        <h:outputScript name="assets/js/breakpoints.min.js" />
+        <h:outputScript name="assets/js/util.js" />
+        <h:outputScript name="assets/js/main.js" />
+    </h:body>
+    </f:view>
+</html>

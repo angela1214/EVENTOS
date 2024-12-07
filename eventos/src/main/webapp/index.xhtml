@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <meta charset="utf-8" />    
+        <title>Login</title>
+        <h:outputStylesheet name="assets/css/main.css" />   
+    </h:head>
+    <h:body class="homepage is-preload">
+        
+        <div id="page-wrapper">
+            
+            <section id="header">
+	            <h1><a>Gestión de eventos y espacios físicos</a></h1>
+            </section>
+            
+            <section id="main">
+            <div class="container" style="width: 90em">
+                <h:form>
+		        	<div id="login" class="ui-fluid formgrid grid" >
+		            	<div class="field col-12 md:col-4" style="margin-bottom: 10px;">
+			                <p:outputLabel for="usuario" value="Usuario" />
+			                <p:inputText id="usuario" value="#{login.user}" />
+		                </div>
+		                
+		                <div class="field col-12 md:col-4" style="margin-bottom: 10px;">
+			                <p:outputLabel for="contraseña" value="Contraseña" />
+		                	<p:password id="contraseña" value="#{login.password}" />
+		                </div>
+		                
+	                	<p:staticMessage rendered="#{login.error}"
+                               severity="error" detail="Usuario y contraseña incorrectos."
+                               style="width: 99.7%; margin-left: 0px;" />
+		                        
+		                <p:commandButton id="login" value="Login"
+			                actionListener="#{login.handleLogin()}" update="login"
+			                style="padding: 5px 30px; margin-top: 10px;"/>
+			    	</div>
+		        </h:form>
+            </div>
+            </section>
+            <ui:include src="/WEB-INF/template/footer.xhtml" />
+        </div>
+    </h:body>
+
+</html>
