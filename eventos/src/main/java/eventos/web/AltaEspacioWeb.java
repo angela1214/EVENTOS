@@ -2,12 +2,14 @@ package eventos.web;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import eventos.modelo.PuntoDeInteres;
 import eventos.servicio.IServicioEspaciosFisicos;
@@ -42,6 +44,12 @@ public class AltaEspacioWeb implements Serializable {
     public void altaEspacio() {
     	
         try {
+            Map<String,Object> sesion = this.facesContext.getExternalContext().getSessionMap();
+
+            if (sesion != null) {
+                this.propietario = (String) sesion.get("user");
+            }
+            
 			this.id_espacio = this.servicioEspacios.alta(this.nombre, this.propietario,
 			this.capacidad,this.direccion, this.latitud, this.longitud, this.descripcion);
 			this.creado = true;

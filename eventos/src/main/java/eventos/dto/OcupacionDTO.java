@@ -3,9 +3,6 @@ package eventos.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import eventos.modelo.Categoria;
-import eventos.modelo.Ocupacion;
-
 @SuppressWarnings("serial")
 public class OcupacionDTO implements Serializable {
 

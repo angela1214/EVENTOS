@@ -1,12 +1,10 @@
 package eventos.dto;
 
 import java.io.Serializable;
-
 import eventos.modelo.Categoria;
-import eventos.modelo.Ocupacion;
 
 @SuppressWarnings("serial")
-public class EventosDTO implements Serializable {
+public class EventoDTO implements Serializable {
 
 	private String id;
 	private String nombre;
@@ -15,10 +13,10 @@ public class EventosDTO implements Serializable {
 	private int plazas;
 	private boolean cancelado;
 	private Categoria categoria;
-	private Ocupacion ocupacion;
+	private OcupacionDTO ocupacion;
 
-    public EventosDTO(String id, String nombre, String descripcion, String organizador, int plazas, boolean cancelado,
-    		Categoria categoria, Ocupacion ocupacion) {
+    public EventoDTO(String id, String nombre, String descripcion, String organizador, int plazas, boolean cancelado,
+    		Categoria categoria, OcupacionDTO ocupacion) {
        
     	this.id = id;
     	this.nombre = nombre;
@@ -59,7 +57,7 @@ public class EventosDTO implements Serializable {
 		return categoria;
 	}
 
-	public Ocupacion getOcupacion() {
+	public OcupacionDTO getOcupacion() {
 		return ocupacion;
 	}
 
@@ -91,7 +89,7 @@ public class EventosDTO implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public void setOcupacion(Ocupacion ocupacion) {
+	public void setOcupacion(OcupacionDTO ocupacion) {
 		this.ocupacion = ocupacion;
 	}
 

@@ -19,27 +19,30 @@
             <section id="header" style="padding: 70px;">
             	<div id="logOut" style="margin-bottom: 20px; display: flex; flex-flow: row-reverse wrap;">
 					<h:form>
-						<p:commandButton value="Cerrar sesión" icon="pi pi-user"
+						<p:commandButton value="#{text.cerrarSesion}" icon="pi pi-user"
 			                actionListener="#{login.logOut()}" styleClass="ui-button-secondary"/>
 					</h:form>
             	</div>
 	            <h1>
-	                <a>Gestión de eventos y espacios físicos</a>
+	                <a>#{text['titulo']}</a>
 	            </h1>
 	            
 	            <nav id="nav">
 		            <ul>
 		                <li class="#{espacios}">
-		                	<h:link outcome="#{request.contextPath}/espacio/listado.xhtml" rendered="#{login.isPropietario()}">Listado de espacios físicos</h:link>
+		                	<h:link outcome="#{request.contextPath}/espacio/listado.xhtml" rendered="#{login.isPropietario() or login.isAdmin()}">#{text['navListadoEspacios']}</h:link>
 		                </li>
 		                <li class="#{alta_espacio}">
-		                	<h:link outcome="#{request.contextPath}/espacio/alta.xhtml" rendered="#{login.isPropietario()}">Alta de un espacio físico</h:link>
+		                	<h:link outcome="#{request.contextPath}/espacio/alta.xhtml" rendered="#{login.isPropietario() or login.isAdmin()}">#{text['navAltaEspacio']}</h:link>
+		                </li>
+		                <li class="#{eventos}">
+		                	<h:link outcome="#{request.contextPath}/evento/listado.xhtml" rendered="#{login.isOrganizador() or login.isAdmin()}">#{text['navListadoEventos']}</h:link>
 		                </li>
 		                <li class="#{buscar_espacios}">
-		                	<h:link outcome="#{request.contextPath}/espacio/buscador.xhtml" rendered="#{!login.isPropietario()}">Buscar espacios físicos</h:link>
+		                	<h:link outcome="#{request.contextPath}/espacio/buscador.xhtml" rendered="#{login.isOrganizador() or login.isAdmin()}">#{text['navBuscarEspacios']}</h:link>
 		                </li> 
 		                <li class="#{alta_evento}">
-		                	<h:link outcome="#{request.contextPath}/evento/alta.xhtml" rendered="#{!login.isPropietario()}">Alta de un evento</h:link>
+		                	<h:link outcome="#{request.contextPath}/evento/alta.xhtml" rendered="#{login.isOrganizador() or login.isAdmin()}">#{text['navAltaEvento']}</h:link>
 		                </li>          
 		            </ul>
 	            </nav> 

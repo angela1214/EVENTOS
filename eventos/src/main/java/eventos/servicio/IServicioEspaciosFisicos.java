@@ -25,6 +25,10 @@ public interface IServicioEspaciosFisicos {
 	
 	EspacioFisicoDTO getEspacioFisico(String id) throws RepositorioException, EntidadNoEncontrada;
 	
-	List<EspacioFisico> getAll() throws RepositorioException;
+	List<EspacioFisicoDTO> getAll() throws RepositorioException;
+	
+	List<EspacioFisicoDTO> getAllActives() throws RepositorioException;
+	
+	List<EspacioFisicoDTO> getEspacioFisicoByPropietario(String propietario) throws RepositorioException;
 	
 }

@@ -30,7 +30,7 @@
 	                
 	                <div class="field col-12 md:col-4" style="margin-bottom: 10px;">
 		                <p:outputLabel for="propietario" value="Propietario *" />
-	                	<p:inputText id="propietario" value="#{altaEspacioWeb.propietario}" />
+	                	<p:inputText id="propietario" value="#{login.user}" readonly="true"/>
 	                </div>
 	                
 	                <div class="field col-12 md:col-4" style="margin-bottom: 10px;">
@@ -67,11 +67,8 @@
                 contentStyle="overflow: hidden; padding: 20px; text-align: center;">
                 <p:outputPanel id="panel" style="width: 100%;">
 	 		        <div class="buttons" style="display: flex; justify-content: space-between; gap: 10px; align-items: center;"> 
-	 		            <p:button outcome="listado" value="Ver listado de espacios físicos" styleClass="ui-button-primary" style="flex: 1; height: 58px;"/> 
+	 		            <p:button outcome="listado" value="Ver listado de espacios físicos" styleClass="ui-button-success" style="flex: 1; height: 58px;"/> 
 	 		            <p:button outcome="alta" value="Crear un nuevo espacio fisico" styleClass="ui-button-info" style="flex: 1; height: 58px;"/>
-	 		        	<p:button outcome="detalles" value="Ver detalles del espacio físico creado" styleClass="ui-button-success" style="flex: 1;">
-	                        <f:param name="id" value="#{altaEspacioWeb.id_espacio}" />
-	                    </p:button>
 	 		        </div>
                 </p:outputPanel>
             </p:dialog>
