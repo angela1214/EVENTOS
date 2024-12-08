@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.eclipse.persistence.config.HintValues;
+import org.eclipse.persistence.config.QueryHints;
+
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.EstadoEspacio;
+import eventos.modelo.Evento;
 import eventos.modelo.Ocupacion;
 import repositorio.RepositorioException;
 import repositorio.RepositorioJPA;
@@ -90,6 +94,35 @@ public class RepositorioEspaciosFisicosAdHocJPA extends RepositorioJPA<EspacioFi
 		
 		return espaciosDisponibles;
 		
+	}
+
+	@Override
+	public List<EspacioFisico> getEspaciosByPropietario(String propietario) throws RepositorioException {
+		
+		EntityManager em = EntityManagerHelper.getEntityManager();
+	    
+		try {
+			
+	        final String queryString = "SELECT e " + 
+	        						   "FROM EspacioFisico e " +
+	        						   "WHERE e.propietario = :propietario";
+
+			Query query = em.createQuery(queryString);
+			query.setHint(QueryHints.REFRESH, HintValues.TRUE);
+			query.setParameter("propietario", propietario);
+			
+			
+			List<EspacioFisico> espacios = query.getResultList();
+  
+			return espacios;
+				
+		} catch (Exception e) {
+	        throw new RepositorioException("Error al buscar las entidades del propietario " + propietario);
+		}
+		
+		finally {
+			EntityManagerHelper.closeEntityManager();
+		}
 	}
 	
 }

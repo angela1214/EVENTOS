@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import eventos.dto.EventosDTO;
+import eventos.dto.EventoDTO;
 import eventos.modelo.Categoria;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.PuntoDeInteres;
@@ -191,12 +191,14 @@ public class Programa {
 		System.out.println(resumen.toString());
 		
 		// Cancelar evento del mes
+		/*
 		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		System.out.println("[ServicioEventos] CANCELAR EVENTO");
 		servicioEventos.cancelar(id_e1);
 		System.out.println("Cancelar el evento con id: "+ id_e1);
 		EventosDTO ev = servicioEventos.getEvento(id_e1);
 		System.out.println("¿Está cancelado el evento? " +  ev.isCancelado());
+		*/
 		
 	}
 

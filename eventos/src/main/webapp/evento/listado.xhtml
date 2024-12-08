@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:param name="eventos" value="current" />
+	
+    <ui:define name="title">
+		#{text['tituloListadoEventos']}
+	</ui:define>
+	
+    <ui:define name="content">
+        <section>
+           <p:dataTable id="eventos" var="evento" value="#{listadoEventosWeb.eventos}" lazy="true">
+                <p:column headerText="ID" style="width: 50px;">
+                    <h:outputText value="#{evento.id}" />
+                </p:column>
+                <p:column headerText="#{text.nombre}" >
+                    <h:outputText value="#{evento.nombre}" />
+                </p:column>
+                <p:column headerText="#{text.descripcion}">
+                    <h:outputText value="#{evento.descripcion}" />
+                </p:column>
+                <p:column headerText="#{text.categoria}" >
+                    <h:outputText value="#{evento.categoria}" />
+                </p:column>
+                <p:column headerText="#{text.plazas}">
+                    <h:outputText value="#{evento.plazas}" />
+                </p:column>
+                <p:column headerText="#{text.organizador}" rendered="#{login.isAdmin()}">
+                    <h:outputText value="#{evento.organizador}" style="width: 50px;"/>
+                </p:column>
+            </p:dataTable>
+        </section>
+    </ui:define>
+</ui:composition>

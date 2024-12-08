@@ -8,7 +8,7 @@
 	<ui:param name="espacios" value="current" />
 	
     <ui:define name="title">
-		Listado de espacios físicos
+		#{text['tituloListadoEspacios']}
 	</ui:define>
 	
     <ui:define name="content">
@@ -17,27 +17,27 @@
                 <p:column headerText="ID" style="width: 50px;">
                     <h:outputText value="#{espacio.id}" />
                 </p:column>
-                <p:column headerText="Nombre">
+                <p:column headerText="#{text.nombre}">
                     <h:outputText value="#{espacio.nombre}" />
                 </p:column>
-                <p:column headerText="Descripcion">
+                <p:column headerText="#{text.descripcion}">
                     <h:outputText value="#{espacio.descripcion}" />
                 </p:column>
-		        <p:column headerText="Dirección">
+		        <p:column headerText="#{text.direccion}">
                     <h:outputText value="#{espacio.direccion}" style="width: 300px;"/>
                 </p:column>
-                <p:column headerText="Capacidad">
+                <p:column headerText="#{text.capacidad}">
                     <h:outputText value="#{espacio.capacidad}" style="width: 100px;"/>
                 </p:column>
-                <p:column headerText="Estado" style="width: 240px;">
+                <p:column headerText="#{text.propietario}" style="width: 240px;" rendered="#{login.isAdmin()}">
+                    <h:outputText value="#{espacio.propietario}" />
+                </p:column>
+                <p:column headerText="#{text.estado}" style="width: 240px;">
                     <h:outputText value="#{espacio.estado}" />
                 </p:column>
-                <p:column headerText="Acciones" style="width: 310px;">
+                <p:column headerText="#{text.acciones}" style="width: 150px;">
                 	<h:form>
-	                    <p:button outcome="detalles" value="Ver detalles" styleClass="ui-button-success" style="margin-right: 10px;">
-	                        <f:param name="id" value="#{espacio.id}" />
-	                    </p:button>
-	                    <p:commandButton value="#{espacio.estado == 'ACTIVO' ? 'Desactivar' : 'Activar'}" styleClass="ui-button-info" style="width: 110px;"  
+	                    <p:commandButton value="#{espacio.estado == 'ACTIVO' ? text.desactivar : text.activar}" styleClass="ui-button-info" style="width: 110px;"  
 	                    	actionListener="#{listadoEspaciosWeb.cambiarEstado(espacio.id, espacio.estado)}" update="espacios" />
                 	</h:form>     
                 </p:column>

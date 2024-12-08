@@ -1,11 +1,14 @@
 package eventos.servicio;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import eventos.dto.EventosDTO;
+import eventos.dto.EspacioFisicoDTO;
+import eventos.dto.EventoDTO;
+import eventos.dto.OcupacionDTO;
 import eventos.modelo.Categoria;
 import eventos.modelo.Evento;
 import eventos.modelo.EspacioFisico;
@@ -28,27 +31,30 @@ public class ServicioEventos implements IServicioEventos {
 			LocalDateTime fecha_inicio, LocalDateTime fecha_fin, String id_espacio_fisico)
 			throws RepositorioException, EntidadNoEncontrada {
 		
+		if (id_espacio_fisico == null || id_espacio_fisico.isEmpty()) 
+			throw new IllegalArgumentException("Espacio físico: no debe ser nulo ni vacio.");
+		
 		EspacioFisico espacio_fisico = repositorioEspaciosFisicos.getById(id_espacio_fisico);
 		
 		// Control de integridad de los datos
 		
 		if (nombre == null || nombre.isEmpty()) 
-			throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("Nombre: no debe ser nulo ni vacio.");
 
 		if (descripcion == null || descripcion.isEmpty()) 
-			throw new IllegalArgumentException("descripcion: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("Descripcion: no debe ser nulo ni vacio.");
 		
 		if (organizador == null || organizador.isEmpty()) 
-			throw new IllegalArgumentException("organizador: no debe ser nulo ni vacio");
+			throw new IllegalArgumentException("Organizador: no debe ser nulo ni vacio.");
 		
 		if (plazas == 0 || plazas > espacio_fisico.getCapacidad()) 
-			throw new IllegalArgumentException("plazas: no debe ser igual a 0 ni el número de plazas puede ser mayor a la capacidad del espacio físico");
+			throw new IllegalArgumentException("Plazas: no debe ser igual a 0 ni el número de plazas puede ser mayor a la capacidad del espacio físico.");
 		
 		if (categoria == null) 
-			throw new IllegalArgumentException("categoria: no debe ser nulo");
+			throw new IllegalArgumentException("Categoria: no debe ser nulo.");
 		
 		if (fecha_inicio == null || fecha_fin== null || fecha_inicio.isAfter(fecha_fin)) 
-			throw new IllegalArgumentException("fecha inicio y fecha fin: no deben ser nulas ni la fecha inicio posterior a la fecha fin");
+			throw new IllegalArgumentException("Fecha inicio y fecha fin: no deben ser nulas ni la fecha inicio posterior a la fecha fin.");
 		
 		Evento evento = new Evento(nombre, descripcion, organizador, plazas, categoria, fecha_inicio, fecha_fin, espacio_fisico);
 		
@@ -136,7 +142,7 @@ public class ServicioEventos implements IServicioEventos {
 	}
 
 	@Override
-	public EventosDTO getEvento(String id) throws RepositorioException, EntidadNoEncontrada {
+	public EventoDTO getEvento(String id) throws RepositorioException, EntidadNoEncontrada {
 		if (id == null || id.isEmpty())
 			throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
 		
@@ -144,9 +150,44 @@ public class ServicioEventos implements IServicioEventos {
 		return transformToDTO(evento);
 	}
 	
-	private EventosDTO transformToDTO(Evento evento) {        
-        return new EventosDTO(evento.getId(), evento.getNombre(), evento.getDescripcion(), evento.getOrganizador(),
-        			evento.getPlazas(), evento.isCancelado(), evento.getCategoria(), evento.getOcupacion());
+	private EventoDTO transformToDTO(Evento evento) { 
+		
+		Ocupacion ocupacion = evento.getOcupacion();
+		OcupacionDTO ocupacionDTO = null;
+		
+		if (ocupacion != null) {
+			EspacioFisico espacio = ocupacion.getEspacioFisico();
+			EspacioFisicoDTO espacioFisicoDTO = new EspacioFisicoDTO(espacio.getId(), espacio.getNombre(), espacio.getPropietario(), espacio.getCapacidad(), espacio.getDireccion(), 
+													espacio.getLatitud(), espacio.getLongitud(), espacio.getPuntosDeInteres(), espacio.getDescripcion(), espacio.getEstado());
+			
+			ocupacionDTO = new OcupacionDTO(ocupacion.getId(), ocupacion.getFechaInicio(), ocupacion.getFechaFin(), espacioFisicoDTO);
+		}
+		
+        return new EventoDTO(evento.getId(), evento.getNombre(), evento.getDescripcion(), evento.getOrganizador(),
+        			evento.getPlazas(), evento.isCancelado(), evento.getCategoria(), ocupacionDTO);
+        
     }
+
+	@Override
+	public List<EventoDTO> getAll() throws RepositorioException {
+		
+		List<EventoDTO> eventosDTO = new ArrayList<>();
+		for(Evento e : repositorioEventos.getAll()) {
+			eventosDTO.add(transformToDTO(e));
+		}
+		
+		return eventosDTO;
+	}
+
+	@Override
+	public List<EventoDTO> getEventosByOrganizador(String organizador) throws RepositorioException {
+		
+		List<EventoDTO> eventosDTO = new ArrayList<>();
+		for(Evento e : repositorioEventos.getEventosByOrganizador(organizador)) {
+			eventosDTO.add(transformToDTO(e));
+		}
+		
+		return eventosDTO;
+	}
 	
 }

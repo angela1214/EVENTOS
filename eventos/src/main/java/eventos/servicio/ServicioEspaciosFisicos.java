@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eventos.dto.EspacioFisicoDTO;
+import eventos.dto.EventoDTO;
 import eventos.modelo.EspacioFisico;
 import eventos.modelo.EstadoEspacio;
 import eventos.modelo.Evento;
@@ -147,8 +148,44 @@ public class ServicioEspaciosFisicos implements IServicioEspaciosFisicos {
     }
 
 	@Override
-	public List<EspacioFisico> getAll() throws RepositorioException {
-		return repositorioEspacios.getAll();
+	public List<EspacioFisicoDTO> getAll() throws RepositorioException {
+
+		List<EspacioFisicoDTO> espaciosDTO = new ArrayList<>();
+		for(EspacioFisico e : repositorioEspacios.getAll()) {
+			espaciosDTO.add(transformToDTO(e));
+		}
+		
+		return espaciosDTO;
+		
 	}
+	
+	@Override
+	public List<EspacioFisicoDTO> getAllActives() throws RepositorioException {
+
+		List<EspacioFisicoDTO> espaciosDTO = new ArrayList<>();
+		for(EspacioFisico e : repositorioEspacios.getAll()) {
+			if (e.getEstado() != EstadoEspacio.CERRADO_TEMPORALMENTE)
+				espaciosDTO.add(transformToDTO(e));
+		}
+		
+		return espaciosDTO;
+		
+	}
+
+	@Override
+	public List<EspacioFisicoDTO> getEspacioFisicoByPropietario(String propietario) throws RepositorioException {
+		
+		if (propietario == null || propietario.isEmpty())
+			throw new IllegalArgumentException("propietario: no debe ser nulo ni vacio");
+		
+
+		List<EspacioFisicoDTO> espaciosDTO = new ArrayList<>();
+		for(EspacioFisico e : repositorioEspacios.getEspaciosByPropietario(propietario)) {
+			espaciosDTO.add(transformToDTO(e));
+		}
+		
+		return espaciosDTO;
+	}
+	
 	
 }

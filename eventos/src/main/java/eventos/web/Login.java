@@ -3,10 +3,12 @@ package eventos.web;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 @Named
@@ -28,10 +30,19 @@ public class Login implements Serializable {
     public void handleLogin() throws IOException {
         if (user.equals("propietario") && password.equals("aadd")) {
             this.logged = true;
+            HttpSession session = (HttpSession) this.facesContext.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
             facesContext.getExternalContext().redirect("/espacio/listado.xhtml");
         } else if (user.equals("organizador") && password.equals("aadd")) {
             this.logged = true;
-            facesContext.getExternalContext().redirect("/espacio/buscador.xhtml");
+            HttpSession session = (HttpSession) this.facesContext.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
+            facesContext.getExternalContext().redirect("/evento/listado.xhtml");
+        } else if (user.equals("admin") && password.equals("aadd")) {
+            this.logged = true;
+            HttpSession session = (HttpSession) this.facesContext.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
+            facesContext.getExternalContext().redirect("/espacio/listado.xhtml");
         } else {
             this.error = true;
         }
@@ -83,6 +94,14 @@ public class Login implements Serializable {
 	
 	public boolean isPropietario() {
 		return user.equals("propietario");
+	}
+
+	public boolean isOrganizador() {
+		return user.equals("organizador");
+	}
+	
+	public boolean isAdmin() {
+		return user.equals("admin");
 	}
 	
 }

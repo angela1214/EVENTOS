@@ -16,5 +16,7 @@ public interface RepositorioEventosAdHoc extends RepositorioString<Evento> {
 	//Consultas concretas que se quieran tener definidas
 		
 	public List<Evento> getEventosMes(int mes, int ano) throws RepositorioException; 
-		
+	
+	public List<Evento> getEventosByOrganizador(String organizador) throws RepositorioException;
+	
 }

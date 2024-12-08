@@ -22,5 +22,7 @@ public interface RepositorioEspaciosFisicosAdHoc extends RepositorioString<Espac
 	public List<Ocupacion> getOcupacionesActivasDeEspacioFisico (String espacio) throws RepositorioException;
 	
 	public List<EspacioFisico> getEspaciosFisicosLibres (LocalDateTime fecha_inicio, LocalDateTime fecha_fin, int capacidad_min) throws RepositorioException;
+	
+	public List<EspacioFisico> getEspaciosByPropietario (String propietario) throws RepositorioException;
 
 }
