@@ -1,0 +1,71 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<ui:param name="buscar_espacios" value="current" />
+	
+    <ui:define name="title">
+		Buscador de espacios físicos
+	</ui:define>
+	
+	<ui:define name="content">
+       <div class="card">
+	       	<div style="margin-bottom: 20px;">
+	       		<h1 style="font-size: 30px;">Buscador de espacios físicos disponibles</h1>
+	       	</div>
+	        <h:form>
+	        	<div class="ui-fluid formgrid grid" >
+	            	<div class="field col-12 md:col-4" style="margin-bottom: 10px;">
+			        <p:outputLabel value="Fecha de inicio *" />
+			                <p:datePicker value="#{buscadorWeb.fecha_inicio}" locale="es"
+			                    monthNavigator="true" pattern="dd-MM-yyyy"
+			                    hideOnDateTimeSelect="true" showTime="false" />                
+	                </div>
+	                
+	                <div class="field col-12 md:col-4" style="margin-bottom: 10px;">
+		                <p:outputLabel value="Fecha fin *" />
+			                <p:datePicker value="#{buscadorWeb.fecha_fin}" locale="es"
+			                    monthNavigator="true" pattern="dd-MM-yyyy"
+			                    hideOnDateTimeSelect="true" showTime="false" />
+	                </div>
+	            	
+	            	<div class="field col-12 md:col-4" style="margin-bottom: 10px;">
+		                <p:outputLabel for="nombre" value="Capacidad mínima *" />
+		                <p:inputText id="nombre" value="#{buscadorWeb.capacidad}" />
+	                </div>
+	               
+		            <p:commandButton id="buscar" value="Buscar"
+		                actionListener="#{buscadorWeb.buscarEspacio()}" update="espacios"
+		                style="padding: 5px 30px; margin-top: 10px;"/>
+		    		<p:growl id="growl" showDetail="true" style="width: 10rem;" />
+		    		
+		    	</div>
+	        </h:form>
+	        <h:panelGrid id="espacios">
+		        <p:dataTable var="espacio" value="#{buscadorWeb.espacios}" rendered="#{!buscadorWeb.first}">
+	                <p:column headerText="ID" style="width: 50px;">
+	                    <h:outputText value="#{espacio.id}" />
+	                </p:column>
+	                <p:column headerText="Nombre">
+	                    <h:outputText value="#{espacio.nombre}" />
+	                </p:column>
+	                <p:column headerText="Descripcion">
+	                    <h:outputText value="#{espacio.descripcion}" />
+	                </p:column>
+			        <p:column headerText="Dirección">
+	                    <h:outputText value="#{espacio.direccion}" style="width: 300px;"/>
+	                </p:column>
+	                <p:column headerText="Capacidad">
+	                    <h:outputText value="#{espacio.capacidad}" style="width: 100px;"/>
+	                </p:column>
+	                <p:column headerText="Propietario" style="width: 240px;">
+	                    <h:outputText value="#{espacio.propietario}"/>
+	                </p:column>
+	            </p:dataTable>
+	       </h:panelGrid>
+	   </div>
+    </ui:define>
+</ui:composition>
